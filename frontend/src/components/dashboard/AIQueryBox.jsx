@@ -1,45 +1,49 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { useState } from "react";
 import { Sparkles } from "lucide-react";
-
-const suggestions = [
-  "Find structuring patterns",
-  "High-risk customers",
-  "Layering detection",
-  "Cross-border transfers",
-];
+import SuggestedQueries from "./SuggestedQueries";
 
 export default function AIQueryBox() {
-  return (
-    <div className="rounded-2xl border border-slate-800 bg-slate-900 p-8">
-      <div className="flex items-center gap-3 mb-6">
-        <Sparkles className="text-emerald-400" />
-        <h2 className="text-2xl font-bold text-white">
-          AI Investigation Agent
-        </h2>
-      </div>
+  const [query, setQuery] = useState("");
 
-      <p className="text-slate-400 mb-6">
-        Ask Sentinel AI to analyse transactions, detect AML patterns, or
-        investigate a customer.
+  const handleInvestigate = () => {
+    if (!query.trim()) return;
+
+    console.log("Investigating:", query);
+
+    // Backend API call will come here later
+  };
+
+  return (
+    <div className="rounded-2xl border border-slate-800 bg-slate-900 p-8 shadow-lg">
+      <span className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 px-4 py-1 text-sm text-emerald-400 border border-emerald-500/30">
+        <Sparkles size={16} />
+        AI Powered Investigation
+      </span>
+
+      <h1 className="mt-8 text-3xl font-bold text-white">Ask FinSentinel AI</h1>
+
+      <p className="mt-2 text-slate-400">
+        Investigate suspicious transactions using natural language. The AI agent
+        will determine the required AML checks automatically.
       </p>
 
-      <div className="flex gap-4">
-        <Input
-          placeholder="Find structuring patterns in last 30 days..."
-          className="h-12"
+      <div className="mt-8 flex gap-4">
+        <input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="e.g. Find structuring patterns in the last 30 days..."
+          className="flex-1 rounded-xl border border-slate-700 bg-slate-950 px-5 py-4 text-white outline-none transition focus:border-emerald-500"
         />
 
-        <Button className="h-12 px-8">Analyse</Button>
+        <button
+          onClick={handleInvestigate}
+          className="rounded-xl bg-emerald-500 px-8 py-4 font-semibold text-black transition hover:bg-emerald-400"
+        >
+          Investigate
+        </button>
       </div>
 
-      <div className="flex flex-wrap gap-3 mt-6">
-        {suggestions.map((item) => (
-          <Button key={item} variant="outline" className="rounded-full">
-            {item}
-          </Button>
-        ))}
-      </div>
+      <SuggestedQueries onSelect={setQuery} />
     </div>
   );
 }
