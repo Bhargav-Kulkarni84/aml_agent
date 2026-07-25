@@ -1,7 +1,7 @@
 from pathlib import Path
-from loader import load_data
-from cleaner import clean_data
-from timestamp import process_timestamps
+from backend.src.preprocessing.loader import load_data
+from backend.src.preprocessing.cleaner import clean_data
+from backend.src.preprocessing.timestamp import process_timestamps
 
 DATA_PATH = Path("data/raw/SAML-D.csv")
 DEV_ROWS = 2_000_000
