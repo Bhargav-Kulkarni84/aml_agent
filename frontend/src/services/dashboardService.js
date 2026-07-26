@@ -33,7 +33,9 @@ export const investigate = async (query) => {
     },
   ];
 
-  const transactions = (data.top_alerts || []).map((tx, index) => ({
+  const transactions = (data.top_alerts || [])
+  .sort((a, b) => b.probability - a.probability)
+  .map((tx, index) => ({
     id: index + 1,
     sender: tx.sender_account,
     receiver: tx.receiver_account,

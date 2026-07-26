@@ -7,6 +7,7 @@ import KPICards from "../components/dashboard/KPICards";
 import RiskChart from "../components/dashboard/RiskChart";
 import TransactionsTable from "../components/dashboard/TransactionsTable";
 import SummaryCard from "../components/dashboard/SummaryCard";
+import ExecutionPlan from "../components/dashboard/ExecutionPlan";
 
 import { investigate } from "../services/dashboardService";
 
@@ -60,6 +61,7 @@ export default function Dashboard() {
             <RiskChart data={result.riskDistribution} />
 
             <TransactionsTable transactions={result.transactions} />
+            <ExecutionPlan steps={result.executionPlan} />
 
             <SummaryCard
               report={result.report}
