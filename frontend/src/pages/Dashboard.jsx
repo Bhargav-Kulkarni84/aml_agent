@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import Layout from "../components/layout/Layout";
 import AIQueryBox from "../components/dashboard/AIQueryBox";
-import AgentWorkflow from "../components/dashboard/AgentWorkflow";
+import Loader from "../components/dashboard/Loader";
 import KPICards from "../components/dashboard/KPICards";
 import RiskChart from "../components/dashboard/RiskChart";
 import TransactionsTable from "../components/dashboard/TransactionsTable";
@@ -14,34 +14,18 @@ import { investigate } from "../services/dashboardService";
 export default function Dashboard() {
   const [status, setStatus] = useState("idle");
 
-  const [currentStep, setCurrentStep] = useState(-1);
-
   const [result, setResult] = useState(null);
 
   const handleInvestigation = async (query) => {
     setStatus("loading");
-    setCurrentStep(0);
-
-    let step = 0;
-
-    const interval = setInterval(() => {
-      step++;
-
-      if (step < 5) {
-        setCurrentStep(step);
-      }
-    }, 800);
 
     try {
       const response = await investigate(query);
-
-      clearInterval(interval);
 
       setResult(response);
 
       setStatus("completed");
     } catch (err) {
-      clearInterval(interval);
       console.error(err);
       setStatus("idle");
     }
@@ -52,7 +36,7 @@ export default function Dashboard() {
       <div className="mx-auto max-w-7xl space-y-8">
         <AIQueryBox onInvestigate={handleInvestigation} />
 
-        {status === "loading" && <AgentWorkflow status={currentStep} />}
+        {status === "loading" && <Loader />}
 
         {status === "completed" && result && (
           <>

@@ -170,6 +170,32 @@ backend/
 
 ---
 
+# Application Preview
+
+## Dashboard
+
+<p align="center">
+  <img src="screenshots/dashboard.png" alt="Dashboard" width="900"/>
+</p>
+
+---
+
+## AI Investigation Workflow
+
+<p align="center">
+  <img src="screenshots/workflow.png" alt="Workflow" width="900"/>
+</p>
+
+---
+
+## Investigation Report
+
+<p align="center">
+  <img src="screenshots/report.png" alt="Report" width="900"/>
+</p>
+
+---
+
 # Getting Started
 
 ## 1. Clone the Repository
