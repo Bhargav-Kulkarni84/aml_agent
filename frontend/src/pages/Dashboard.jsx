@@ -7,13 +7,14 @@ import TransactionsTable from "../components/dashboard/TransactionsTable";
 import SummaryCard from "../components/dashboard/SummaryCard";
 import { useState } from "react";
 import AgentWorkflow from "../components/dashboard/AgentWorkflow";
-import { dashboardData } from "../data/dashboardData";
+import { investigate } from "../services/dashboardService";
 
 export default function Dashboard() {
   const [status, setStatus] = useState("idle"); // idle | loading | completed
   const [currentStep, setCurrentStep] = useState(-1);
+  const [dashboardData, setDashboardData] = useState(null);
 
-  const handleInvestigation = () => {
+  const handleInvestigation = async (query) => {
     setStatus("loading");
     setCurrentStep(0);
 
@@ -24,15 +25,16 @@ export default function Dashboard() {
 
       if (step < 7) {
         setCurrentStep(step);
-      } else {
-        clearInterval(interval);
-
-        setTimeout(() => {
-          setStatus("completed");
-          setCurrentStep(-1); // hide workflow
-        }, 500);
       }
     }, 500);
+
+    const result = await investigate(query);
+
+    clearInterval(interval);
+
+    setDashboardData(result);
+
+    setStatus("completed");
   };
   return (
     <Layout>
@@ -41,7 +43,7 @@ export default function Dashboard() {
 
         {status === "loading" && <AgentWorkflow status={currentStep} />}
 
-        {status === "completed" && (
+        {status === "completed" && dashboardData && (
           <>
             <KPICards metrics={dashboardData.metrics} />
 
