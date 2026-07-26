@@ -2,15 +2,13 @@ import { useState } from "react";
 import { Sparkles } from "lucide-react";
 import SuggestedQueries from "./SuggestedQueries";
 
-export default function AIQueryBox() {
+export default function AIQueryBox({ onInvestigate }) {
   const [query, setQuery] = useState("");
 
   const handleInvestigate = () => {
     if (!query.trim()) return;
 
-    console.log("Investigating:", query);
-
-    // Backend API call will come here later
+    onInvestigate(query);
   };
 
   return (
