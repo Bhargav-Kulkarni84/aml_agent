@@ -1,5 +1,3 @@
-from collections import deque   
-
 class AccountProfile:
 
     def __init__(

@@ -1,4 +1,4 @@
-from account_profile import AccountProfile
+from src.profiles.account_profile import AccountProfile
 
 class ProfileManager:
 

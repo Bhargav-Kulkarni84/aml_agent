@@ -1,6 +1,6 @@
 import pandas as pd
 
-from profiles.profile_manager import ProfileManager
+from src.profiles.profile_manager import ProfileManager
 
 
 class TransactionProcessor:
@@ -46,46 +46,39 @@ class TransactionProcessor:
             #Features before updating the sender and receiver.
             features = {
 
+                #Identity
                 "sender_account": row.sender_account,
-
                 "receiver_account": row.receiver_account,
-
                 "amount": row.amount,
-
                 "timestamp": row.timestamp,
-
                 "is_laundering": row.is_laundering,
-
                 "laundering_type": row.laundering_type,
 
-                # Behavioral features
-
+                # Transaction features
+                "is_cross_border": row.is_cross_border,
+                "currency_changed": row.currency_changed,
+                "is_self_transfer": row.is_self_transfer,
+                "is_cash_deposit": row.is_cash_deposit,
+                "is_cash_withdrawal": row.is_cash_withdrawal,
+                "is_cheque": row.is_cheque,
+                "is_ach": row.is_ach,
+                "is_credit_card": row.is_credit_card,
+                "is_debit_card": row.is_debit_card,
                 "seconds_since_last_tx": seconds_since_last_tx,
 
+                # Behavioral features
                 "sender_avg_sent_amount": avg_sent_amount,
-
                 "amount_to_avg_ratio": amount_to_avg_ratio,
-
                 "sender_total_sent":sender.total_sent,
-
                 "sender_total_received":sender.total_received,
-
                 "sender_outgoing_transactions":sender.outgoing_transactions,
-
                 "sender_incoming_transactions":sender.incoming_transactions,
-
                 "sender_unique_receivers":len(sender.unique_receivers),
-
                 "receiver_unique_senders":len(receiver.unique_senders),
-
                 "sender_fan_out_ratio": fan_out_ratio,
-
                 "receiver_fan_in_ratio": fan_in_ratio,
-
                 "rapid_tx_flag": rapid_tx_flag,
-
                 "large_tx_flag" : large_tx_flag
-
                 
             } 
 
