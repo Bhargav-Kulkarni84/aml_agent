@@ -183,7 +183,7 @@ backend/
 ## AI Investigation Workflow
 
 <p align="center">
-  <img src="screenshots/workflow.png" alt="Workflow" width="900"/>
+  <img src="https://github.com/user-attachments/assets/d9b609a9-0590-4188-bdb4-2975e154070a" alt="Workflow" width="900"/>
 </p>
 
 ---
@@ -191,7 +191,7 @@ backend/
 ## Investigation Report
 
 <p align="center">
-  <img src="screenshots/report.png" alt="Report" width="900"/>
+  <img src="https://github.com/user-attachments/assets/70e9c3bb-98b3-47be-9089-94e68b5f3d52" alt="Report" width="900"/>
 </p>
 
 ---
