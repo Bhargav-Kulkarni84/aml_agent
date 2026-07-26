@@ -66,6 +66,10 @@ X_train, X_test, y_train, y_test = train_test_split(
     stratify=y,        # Preserve class proportions
 )
 
+neg = (y_train == 0).sum()
+pos = (y_train == 1).sum()
+scale_pos_weight = neg / pos
+
 # STEP 5: Create the model
 model = XGBClassifier(
     n_estimators=200,          # Number of trees
@@ -74,13 +78,27 @@ model = XGBClassifier(
     objective="binary:logistic",  # Binary classification
     eval_metric="logloss",     # Evaluation metric
     random_state=42,
+    scale_pos_weight=scale_pos_weight
 )
 
 # STEP 6: Train the model
 model.fit(X_train, y_train)
 
 # STEP 7: Make predictions
-pred = model.predict(X_test)
+# pred = model.predict(X_test)
+prob = model.predict_proba(X_test)[:,1]
+pred = prob > 0.35
+
+importance = model.feature_importances_
+
+feature_importance = sorted(
+    zip(X.columns, importance),
+    key=lambda x: x[1],
+    reverse=True
+)
+
+for feature, score in feature_importance:
+    print(f"{feature:35} {score:.4f}")
 
 # STEP 8: Evaluate the model
 print(classification_report(y_test, pred))
@@ -89,3 +107,4 @@ print(roc_auc_score(y_test,model.predict_proba(X_test)[:, 1]))
 
 # STEP 9: Save the trained model
 joblib.dump(model, "aml_model.pkl")
+joblib.dump(X.columns.tolist(), "feature_columns.pkl")
