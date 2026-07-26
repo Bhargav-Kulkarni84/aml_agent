@@ -10,11 +10,11 @@ import AgentWorkflow from "../components/dashboard/AgentWorkflow";
 import { dashboardData } from "../data/dashboardData";
 
 export default function Dashboard() {
-  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState("idle"); // idle | loading | completed
   const [currentStep, setCurrentStep] = useState(-1);
 
   const handleInvestigation = () => {
-    setLoading(true);
+    setStatus("loading");
     setCurrentStep(0);
 
     let step = 0;
@@ -26,7 +26,11 @@ export default function Dashboard() {
         setCurrentStep(step);
       } else {
         clearInterval(interval);
-        setLoading(false);
+
+        setTimeout(() => {
+          setStatus("completed");
+          setCurrentStep(-1); // hide workflow
+        }, 500);
       }
     }, 500);
   };
@@ -35,9 +39,9 @@ export default function Dashboard() {
       <div className="mx-auto max-w-7xl space-y-8">
         <AIQueryBox onInvestigate={handleInvestigation} />
 
-        {loading && <AgentWorkflow status={currentStep} />}
+        {status === "loading" && <AgentWorkflow status={currentStep} />}
 
-        {!loading && (
+        {status === "completed" && (
           <>
             <KPICards metrics={dashboardData.metrics} />
 

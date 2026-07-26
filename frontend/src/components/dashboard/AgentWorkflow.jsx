@@ -20,7 +20,7 @@ export default function AgentWorkflow({ status }) {
       <div className="space-y-4">
         {steps.map((step, index) => (
           <div key={step} className="flex items-center gap-3">
-            {index < status ? (
+            {status === 7 || index < status ? (
               <CheckCircle2 className="text-green-400" size={20} />
             ) : index === status ? (
               <Loader2 className="animate-spin text-yellow-400" size={20} />
@@ -32,6 +32,11 @@ export default function AgentWorkflow({ status }) {
           </div>
         ))}
       </div>
+      {status === 7 && (
+        <div className="mt-6 rounded-lg border border-green-500/30 bg-green-500/10 p-4 text-green-400">
+          ✅ Investigation Completed
+        </div>
+      )}
     </div>
   );
 }
