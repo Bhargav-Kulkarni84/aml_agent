@@ -1,23 +1,30 @@
 import Layout from "../components/layout/Layout";
 import AIQueryBox from "../components/dashboard/AIQueryBox";
+import KPICards from "../components/dashboard/KPICards";
+import RiskChart from "../components/dashboard/RiskChart";
+import ActivityChart from "../components/dashboard/ActivityChart";
+import TransactionsTable from "../components/dashboard/TransactionsTable";
+import SummaryCard from "../components/dashboard/SummaryCard";
+
+import { dashboardData } from "../data/dashboardData";
 
 export default function Dashboard() {
   return (
     <Layout>
-      <div className="max-w-5xl mx-auto">
+      <div className="mx-auto max-w-7xl space-y-8">
         <AIQueryBox />
 
-        <div className="mt-10 rounded-2xl border border-dashed border-slate-700 p-16 text-center">
-          <h2 className="text-xl font-semibold text-slate-300">
-            Ready to Investigate
-          </h2>
+        <KPICards metrics={dashboardData.metrics} />
 
-          <p className="mt-3 text-slate-500">
-            Enter a natural language query above to start an AML investigation.
-            The AI agent will analyze transactions, detect anomalies, and
-            generate explainable insights.
-          </p>
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+          <RiskChart data={dashboardData.riskDistribution} />
+
+          <ActivityChart data={dashboardData.timeline} />
         </div>
+
+        <TransactionsTable transactions={dashboardData.transactions} />
+
+        <SummaryCard summary={dashboardData.summary} />
       </div>
     </Layout>
   );

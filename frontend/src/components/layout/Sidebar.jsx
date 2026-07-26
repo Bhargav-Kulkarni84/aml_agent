@@ -31,9 +31,9 @@ const menuItems = [
 
 export default function Sidebar() {
   return (
-    <aside className="w-64 bg-slate-900 border-r border-slate-800 h-screen flex flex-col">
+    <aside className="w-64 bg-slate-900 border-r border-slate-800 min-h-screen flex flex-col">
       <div className="p-6">
-        <h1 className="text-2xl font-bold text-white">Sentinel AI</h1>
+        <h1 className="text-2xl font-bold text-white">FinSentinel AI</h1>
 
         <p className="text-sm text-slate-400 mt-1">
           AML Investigation Platform
