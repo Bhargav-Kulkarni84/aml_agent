@@ -10,29 +10,51 @@ export default function TransactionsTable({ transactions }) {
           <thead className="text-slate-400">
             <tr>
               <th className="pb-4">ID</th>
-              <th>Customer</th>
+              <th>Sender</th>
+              <th>Receiver</th>
               <th>Amount</th>
-              <th>Country</th>
               <th>Risk</th>
-              <th>Reason</th>
+              <th>Cross Border</th>
+              <th>Currency</th>
+              <th>Probability</th>
             </tr>
           </thead>
 
           <tbody>
             {transactions.map((tx) => (
-              <tr key={tx.id} className="border-t border-slate-800">
+              <tr
+                key={tx.id}
+                className="border-t border-slate-800 text-slate-200"
+              >
                 <td className="py-4">{tx.id}</td>
-                <td>{tx.customer}</td>
-                <td>{tx.amount}</td>
-                <td>{tx.country}</td>
+
+                <td>{tx.sender}</td>
+
+                <td>{tx.receiver}</td>
+
+                <td className="text-white font-medium">
+                  ${tx.amount.toLocaleString()}
+                </td>
 
                 <td>
-                  <span className="rounded-full bg-red-500/20 px-3 py-1 text-red-400">
+                  <span
+                    className={`rounded-full px-3 py-1 text-sm ${
+                      tx.risk === "High"
+                        ? "bg-red-500/20 text-red-400"
+                        : tx.risk === "Medium"
+                          ? "bg-yellow-500/20 text-yellow-400"
+                          : "bg-green-500/20 text-green-400"
+                    }`}
+                  >
                     {tx.risk}
                   </span>
                 </td>
 
-                <td>{tx.reason}</td>
+                <td>{tx.crossBorder}</td>
+
+                <td>{tx.currencyChanged}</td>
+
+                <td>{tx.probability}</td>
               </tr>
             ))}
           </tbody>

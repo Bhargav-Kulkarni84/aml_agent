@@ -1,10 +1,10 @@
-import { Activity, AlertTriangle, ShieldAlert, TrendingUp } from "lucide-react";
+import { Activity, AlertTriangle, ShieldAlert, Brain } from "lucide-react";
 
 const iconMap = {
   totalTransactions: Activity,
   suspiciousTransactions: AlertTriangle,
-  highRiskCustomers: ShieldAlert,
-  riskScore: TrendingUp,
+  highRiskTransactions: ShieldAlert,
+  aiConfidence: Brain,
 };
 
 export default function KPICards({ metrics }) {
@@ -16,18 +16,18 @@ export default function KPICards({ metrics }) {
     },
     {
       key: "suspiciousTransactions",
-      title: "Suspicious",
-      value: metrics.suspiciousTransactions,
+      title: "Suspicious Transactions",
+      value: metrics.suspiciousTransactions.toLocaleString(),
     },
     {
-      key: "highRiskCustomers",
-      title: "High Risk",
-      value: metrics.highRiskCustomers,
+      key: "highRiskTransactions",
+      title: "High Risk Transactions",
+      value: metrics.highRiskTransactions.toLocaleString(),
     },
     {
-      key: "riskScore",
-      title: "Risk Score",
-      value: `${metrics.riskScore}%`,
+      key: "aiConfidence",
+      title: "AI Confidence",
+      value: `${metrics.aiConfidence}%`,
     },
   ];
 
@@ -38,7 +38,7 @@ export default function KPICards({ metrics }) {
 
         return (
           <div
-            key={card.title}
+            key={card.key}
             className="rounded-2xl border border-slate-800 bg-slate-900 p-6"
           >
             <div className="flex items-center justify-between">

@@ -31,9 +31,9 @@ const menuItems = [
 
 export default function Sidebar() {
   return (
-    <aside className="w-64 bg-slate-900 border-r border-slate-800 min-h-screen flex flex-col">
+    <aside className="sticky top-0 h-screen w-64 bg-slate-900 border-r border-slate-800 flex flex-col">
       <div className="p-6">
-        <h1 className="text-2xl font-bold text-white">FinSentinel AI</h1>
+        <h1 className="text-2xl font-bold text-white">🛡️ FinSentinel AI</h1>
 
         <p className="text-sm text-slate-400 mt-1">
           AML Investigation Platform
@@ -55,6 +55,17 @@ export default function Sidebar() {
           );
         })}
       </nav>
+      <div className="border-t border-slate-800 p-4 text-sm">
+        <div className="flex items-center gap-2 text-green-400">
+          <span className="h-2 w-2 rounded-full bg-green-400"></span>
+          Backend Connected
+        </div>
+
+        <div className="mt-2 flex items-center gap-2 text-emerald-400">
+          <span className="h-2 w-2 rounded-full bg-emerald-400"></span>
+          AI Engine Ready
+        </div>
+      </div>
     </aside>
   );
 }

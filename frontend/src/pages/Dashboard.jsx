@@ -1,18 +1,21 @@
+import { useState } from "react";
+
 import Layout from "../components/layout/Layout";
 import AIQueryBox from "../components/dashboard/AIQueryBox";
+import AgentWorkflow from "../components/dashboard/AgentWorkflow";
 import KPICards from "../components/dashboard/KPICards";
 import RiskChart from "../components/dashboard/RiskChart";
-import ActivityChart from "../components/dashboard/ActivityChart";
 import TransactionsTable from "../components/dashboard/TransactionsTable";
 import SummaryCard from "../components/dashboard/SummaryCard";
-import { useState } from "react";
-import AgentWorkflow from "../components/dashboard/AgentWorkflow";
+
 import { investigate } from "../services/dashboardService";
 
 export default function Dashboard() {
-  const [status, setStatus] = useState("idle"); // idle | loading | completed
+  const [status, setStatus] = useState("idle");
+
   const [currentStep, setCurrentStep] = useState(-1);
-  const [dashboardData, setDashboardData] = useState(null);
+
+  const [result, setResult] = useState(null);
 
   const handleInvestigation = async (query) => {
     setStatus("loading");
@@ -23,19 +26,26 @@ export default function Dashboard() {
     const interval = setInterval(() => {
       step++;
 
-      if (step < 7) {
+      if (step < 5) {
         setCurrentStep(step);
       }
-    }, 500);
+    }, 800);
 
-    const result = await investigate(query);
+    try {
+      const response = await investigate(query);
 
-    clearInterval(interval);
+      clearInterval(interval);
 
-    setDashboardData(result);
+      setResult(response);
 
-    setStatus("completed");
+      setStatus("completed");
+    } catch (err) {
+      clearInterval(interval);
+      console.error(err);
+      setStatus("idle");
+    }
   };
+
   return (
     <Layout>
       <div className="mx-auto max-w-7xl space-y-8">
@@ -43,18 +53,19 @@ export default function Dashboard() {
 
         {status === "loading" && <AgentWorkflow status={currentStep} />}
 
-        {status === "completed" && dashboardData && (
+        {status === "completed" && result && (
           <>
-            <KPICards metrics={dashboardData.metrics} />
+            <KPICards metrics={result.metrics} />
 
-            <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-              <RiskChart data={dashboardData.riskDistribution} />
-              <ActivityChart data={dashboardData.timeline} />
-            </div>
+            <RiskChart data={result.riskDistribution} />
 
-            <TransactionsTable transactions={dashboardData.transactions} />
+            <TransactionsTable transactions={result.transactions} />
 
-            <SummaryCard summary={dashboardData.summary} />
+            <SummaryCard
+              report={result.report}
+              confidence={result.confidence}
+              intent={result.intent}
+            />
           </>
         )}
       </div>

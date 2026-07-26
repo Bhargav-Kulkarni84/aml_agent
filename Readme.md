@@ -1,4 +1,5 @@
 # 🛡️ FinSentinel AI
+
 ### Agentic AI-Powered Anti-Money Laundering Detection System
 
 ![Python](https://img.shields.io/badge/Python-3.11-blue)
@@ -87,13 +88,13 @@ The AI agent automatically plans the investigation workflow, executes the requir
 
 # Tech Stack
 
-| Category | Technologies |
-|----------|--------------|
-| Backend | FastAPI, Python |
-| Machine Learning | XGBoost, Pandas, Joblib |
-| AI | Google Gemini |
-| Frontend | React, Tailwind CSS |
-| Dataset | IBM SAML-D Synthetic AML Dataset |
+| Category         | Technologies                     |
+| ---------------- | -------------------------------- |
+| Backend          | FastAPI, Python                  |
+| Machine Learning | XGBoost, Pandas, Joblib          |
+| AI               | Google Gemini                    |
+| Frontend         | React, Tailwind CSS              |
+| Dataset          | IBM SAML-D Synthetic AML Dataset |
 
 ---
 
@@ -260,14 +261,14 @@ http://127.0.0.1:8000
 
 # API Endpoints
 
-| Method | Endpoint | Description |
-|---------|----------|-------------|
-| GET | `/health` | Health check |
-| GET | `/dashboard` | Dashboard statistics |
-| GET | `/transactions` | Transaction list |
-| GET | `/customers` | Customer analytics |
-| GET | `/analytics` | AML analytics |
-| POST | `/investigate` | AI-powered AML investigation |
+| Method | Endpoint        | Description                  |
+| ------ | --------------- | ---------------------------- |
+| GET    | `/health`       | Health check                 |
+| GET    | `/dashboard`    | Dashboard statistics         |
+| GET    | `/transactions` | Transaction list             |
+| GET    | `/customers`    | Customer analytics           |
+| GET    | `/analytics`    | AML analytics                |
+| POST   | `/investigate`  | AI-powered AML investigation |
 
 ---
 
@@ -275,7 +276,7 @@ http://127.0.0.1:8000
 
 ```json
 {
-    "query": "Find suspicious transactions"
+  "query": "Find suspicious transactions"
 }
 ```
 
@@ -285,10 +286,10 @@ http://127.0.0.1:8000
 
 ```json
 {
-    "intent": "SUSPICIOUS_TRANSACTIONS",
-    "confidence": 0.99,
-    "summary": {},
-    "report": "Investigation report..."
+  "intent": "SUSPICIOUS_TRANSACTIONS",
+  "confidence": 0.99,
+  "summary": {},
+  "report": "Investigation report..."
 }
 ```
 
@@ -323,7 +324,7 @@ http://127.0.0.1:8000
 # Contributors
 
 - **Bhargav Kulkarni**
-- **Nikhil Bansal**
+- **Nikhil Bansal V**
 
 ---
 
