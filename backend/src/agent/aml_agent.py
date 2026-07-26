@@ -37,8 +37,25 @@ class AMLAgent:
         for step in plan.steps: 
             print(f"{step.tool.value}: {step.reason}")
 
+        # for step in plan.steps:
+
+        #     print(f"\nRunning {step.tool.value}")
+        #     tool = self.tools[step.tool]
+        #     context = tool.run(context)
+        #     print(f"{step.tool.value} completed")
+
         for step in plan.steps:
+
+            print(f"\n========== {step.tool.value} ==========")
+
             tool = self.tools[step.tool]
-            context = tool.run(context)
+
+            try:
+                context = tool.run(context)
+                print(f"{step.tool.value} completed successfully")
+
+            except Exception as e:
+                print(f"{step.tool.value} FAILED")
+                raise e
 
         return context

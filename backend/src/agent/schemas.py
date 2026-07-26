@@ -18,12 +18,6 @@ class ToolStep(BaseModel):
 
 
 class ExecutionPlan(BaseModel):
-    intent: str = Field(
-        description="Detected user intent"
-    )
-
-    filters: dict[str, Any] = Field(
-        default_factory=dict
-    )
-
+    intent: str = Field(description="Detected user intent")
+    confidence: float = Field(description="Confidence between 0 and 1.")
     steps: list[ToolStep]

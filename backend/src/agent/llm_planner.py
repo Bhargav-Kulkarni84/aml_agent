@@ -15,7 +15,7 @@ class LLMPlanner:
     def plan(self, query: str) -> ExecutionPlan:
 
         response = self.client.models.generate_content(
-            model="gemini-2.5-flash",
+            model="gemini-3.6-flash",
 
             contents=f"""
             {PLANNER_PROMPT}

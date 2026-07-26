@@ -6,10 +6,13 @@ class FeatureTool:
     def __init__(self):
         self.processor = TransactionProcessor()
 
-    def run(self, df):
+    def run(self, context):
 
-        #Generate transaction and behavioural features.
+        df = context["data"]
+
         df = generate_transaction_features(df)
         feature_df = self.processor.process(df)
 
-        return feature_df
+        context["feature_df"] = feature_df
+
+        return context
