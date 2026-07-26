@@ -10,6 +10,7 @@ class Tool(str, Enum):
     ANOMALY = "ANOMALY"
     RISK = "RISK"
     EXPLANATION = "EXPLANATION"
+    REPORT = "REPORT"
 
 
 class ToolStep(BaseModel):

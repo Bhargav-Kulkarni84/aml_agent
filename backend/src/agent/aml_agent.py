@@ -4,6 +4,7 @@ from src.tools.anamoly_tool import AnomalyTool
 from src.tools.risk_tool import RiskTool
 from src.tools.explanation_tool import ExplanationTool
 from src.agent.llm_planner import LLMPlanner
+from src.tools.report_tool import ReportTool
 from src.agent.schemas import Tool
 
 class AMLAgent:
@@ -17,7 +18,8 @@ class AMLAgent:
             Tool.FEATURE: FeatureTool(),
             Tool.ANOMALY: AnomalyTool(),
             Tool.RISK: RiskTool(),
-            Tool.EXPLANATION: ExplanationTool()
+            Tool.EXPLANATION: ExplanationTool(),
+            Tool.REPORT: ReportTool()
         }
 
     def handle_query(self,query,df):
@@ -46,7 +48,7 @@ class AMLAgent:
 
         for step in plan.steps:
 
-            print(f"\n========== {step.tool.value} ==========")
+            print(f"\n{step.tool.value}")
 
             tool = self.tools[step.tool]
 

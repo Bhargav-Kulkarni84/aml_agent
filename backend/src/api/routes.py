@@ -75,11 +75,11 @@ def analytics():
 
 
 # post : /investigate
-@router.post("/investigate")
+@router.post("/api/v1/investigate")
 def investigate(request: QueryRequest):
 
-    result = agent.handle_query(request.query,df)
-    
+    result = agent.handle_query(request.query, df)
+
     return {
 
         "intent":result["plan"].intent,
@@ -87,12 +87,18 @@ def investigate(request: QueryRequest):
         "confidence":result["plan"].confidence,
 
         "execution_plan":[
-            {"tool":step.tool.value,"reason":step.reason}
+            {
+                "tool": step.tool.value,
+                "reason": step.reason
+            }
+
             for step in result["plan"].steps
         ],
 
-        "eda":result.get("eda"),
+        "summary":result["summary"],
 
-        "reports":result.get("reports", [])
+        "top_alerts":result["reports"][:10],
+
+        "report":result["llm_report"]
 
     }
