@@ -4,25 +4,28 @@ class AnomalyTool:
 
     def __init__(self):
 
-        self.model = joblib.load("models/aml_model.pkl")
-        self.columns = joblib.load("models/feature_columns.pkl")
+        self.model = joblib.load("src/models/aml_model.pkl")
+        self.columns = joblib.load("src/models/feature_columns.pkl")
 
-        def run(self, feature_df):
+    def run(self, context):
 
-            drop_columns = [
-                "sender_account",
-                "receiver_account",
-                "timestamp",
-                "laundering_type",
-                "is_laundering"
-            ]
+        feature_df = context["feature_df"]
 
-            X = feature_df.drop(columns=drop_columns)
-            X = X[self.columns]
-            prob = self.model.predict_proba(X)[:,1]
-            prediction = prob > 0.5
+        drop_columns = [
+            "sender_account",
+            "receiver_account",
+            "timestamp",
+            "laundering_type",
+            "is_laundering"
+        ]
 
-            return {
-                "probability": prob,
-                "prediction": prediction
-            }
+        X = feature_df.drop(columns=drop_columns)
+        X = X[self.columns]
+
+        probability = self.model.predict_proba(X)[:,1]
+        prediction = probability > 0.35
+
+        context["probability"] = probability
+        context["prediction"] = prediction
+        
+        return context

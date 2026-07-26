@@ -1,7 +1,22 @@
 class RiskTool:
 
-    def classify(self, probability):
+    def run(self, context):
 
-        if probability < 0.30: return "Low"
-        elif probability < 0.70: return "Medium"
-        return "High"
+        probability = context["probability"]
+
+        risk = []
+
+        for p in probability:
+
+            if p < 0.30:
+                risk.append("Low")
+
+            elif p < 0.70:
+                risk.append("Medium")
+
+            else:
+                risk.append("High")
+
+        context["risk"] = risk
+
+        return context

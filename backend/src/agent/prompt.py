@@ -48,17 +48,28 @@ EXPLANATION
 
 Rules
 
-1. Return ONLY JSON.
-
-2. Never answer the user.
-
+1. Return ONLY valid JSON.
+2. Never answer the user's question.
 3. Only select the tools required.
+4. Explain why every selected tool is needed.
+5. Never invent tool names.
+6. confidence must be a number between 0.0 and 1.0 indicating how confident you are that the execution plan matches the user's request.
+7. Always include all required fields.
 
-4. Extract filters whenever possible.
+------------------------------------
 
-5. Explain WHY every tool is needed.
+Expected JSON Format
 
-6. Never invent tool names.
+{
+  "intent": "<intent>",
+  "confidence": 0.95,
+  "steps": [
+    {
+      "tool": "EDA",
+      "reason": "User requested dataset statistics."
+    }
+  ]
+}
 
 ------------------------------------
 
@@ -67,38 +78,73 @@ Examples
 User:
 Show dataset statistics.
 
-Intent:
-EDA
-
-Steps:
-EDA
+Output:
+{
+  "intent": "EDA",
+  "confidence": 0.99,
+  "steps": [
+    {
+      "tool": "EDA",
+      "reason": "Dataset statistics require the EDA tool."
+    }
+  ]
+}
 
 ------------------------------------
 
 User:
 Find suspicious transactions.
 
-Intent:
-SUSPICIOUS_TRANSACTIONS
-
-Steps:
-
-FEATURE
-
-ANOMALY
-
-RISK
-
-EXPLANATION
+Output:
+{
+  "intent": "SUSPICIOUS_TRANSACTIONS",
+  "confidence": 0.98,
+  "steps": [
+    {
+      "tool": "FEATURE",
+      "reason": "Generate features required by the AML model."
+    },
+    {
+      "tool": "ANOMALY",
+      "reason": "Score transactions using the trained AML model."
+    },
+    {
+      "tool": "RISK",
+      "reason": "Convert anomaly scores into risk levels."
+    },
+    {
+      "tool": "EXPLANATION",
+      "reason": "Explain why each transaction was flagged."
+    }
+  ]
+}
 
 ------------------------------------
 
 User:
 Find structuring during the last 30 days.
 
-Extract
-
-last_days = 30
-
-------------------------------------
+Output:
+{
+  "intent": "STRUCTURING_DETECTION",
+  "confidence": 0.96,
+  "steps": [
+    {
+      "tool": "FEATURE",
+      "reason": "Generate behavioral features for structuring detection."
+    },
+    {
+      "tool": "ANOMALY",
+      "reason": "Identify suspicious transaction patterns."
+    },
+    {
+      "tool": "RISK",
+      "reason": "Assign risk levels to detected transactions."
+    },
+    {
+      "tool": "EXPLANATION",
+      "reason": "Generate investigator-friendly explanations."
+    }
+  ]
+}
 """
